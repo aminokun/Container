@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Models
 {
     public class Container
     {
-        public int Weight { get; set; }
-        public bool IsValuable { get; set; }
-        public bool IsCooled { get; set; }
+        public string ID { get; set; }
+        public ContainerType Type { get; set; }
 
-        public Container(int weight, bool isValuable, bool isCooled)
+        public Container(string id, ContainerType type)
         {
-            Weight = weight;
-            IsValuable = isValuable;
-            IsCooled = isCooled;
+            ID = id;
+            Type = type;
         }
+    }
+
+    public enum ContainerType
+    {
+        Cooled,
+        Valuable,
+        Normal,
+        Empty
     }
 }
