@@ -11,21 +11,17 @@ namespace BLL
     {
         public static void SortContainers(Container[,,] cargoShip)
         {
-            // Get cargo dimensions
             int rows = cargoShip.GetLength(0);
             int columns = cargoShip.GetLength(1);
             int levels = cargoShip.GetLength(2);
 
-            // Flattening matrix into a list of containers 
             List<Container> flattenedCargoShip = cargoShip.Cast<Container>().ToList();
 
-            // Find unique containers sorted by type
             List<Container> uniqueContainers = flattenedCargoShip
                 .Distinct()
                 .OrderBy(container => container.Type)
                 .ToList();
 
-            // Split containers by type
             var CooledContainers = uniqueContainers
                 .Where(container => container.Type == ContainerType.Cooled)
                 .ToList();
@@ -38,10 +34,8 @@ namespace BLL
                 .Where(container => container.Type == ContainerType.Normal)
                 .ToList();
 
-            // Calculate total cargo positions
             int totalPositions = rows * columns * levels;
 
-            // Fill first rows with cooled containers
             int firstRowCounter = 0;
             int cooledIndex = 0;
             int normalIndex = 0;
@@ -54,7 +48,6 @@ namespace BLL
                     break;
                 }
 
-                // add cooled containers in this row until no more left
                 while (CooledContainers.Count > 0 && firstRowCounter < columns)
                 {
                     cargoShip[row, firstRowCounter, 0] = CooledContainers[cooledIndex];
@@ -68,7 +61,6 @@ namespace BLL
             }
 
 
-            // Fill rest of the positions with normal containers, then valuable containers
             int currentIndex = firstRowCounter;
 
             for (int level = 0; level < levels; level++)
@@ -101,13 +93,11 @@ namespace BLL
                         }
                     }
 
-                    // go back to the first column for the next row 
                     currentIndex = 0;
 
                 }
             }
 
-            // Check if there are any remaining valuable containers to be added 
 
             if (ValuableContainers.Count > 0)
             {
@@ -132,7 +122,6 @@ namespace BLL
                             }
                         }
 
-                        // go back to the first column for the next row 
                         currentIndex = 0;
 
                     }
