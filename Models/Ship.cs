@@ -22,12 +22,11 @@ namespace Models
                 {
                     for (int column = 0; column < Columns; column++)
                     {
-                        CargoShip[row, column, level] = null;  // Set to null initially
+                        CargoShip[row, column, level] = null;
                     }
                 }
             }
         }
-
         public void FillShip(Container[] containers)
         {
             int testCaseIndex = 0;
