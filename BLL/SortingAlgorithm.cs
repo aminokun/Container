@@ -40,17 +40,20 @@ namespace BLL
             int cooledIndex = 0;
             int normalIndex = 0;
             int valuableIndex = 0;
+            int levelChanger = 0;
+
 
             for (int row = 0; row < rows; row++)
             {
                 if (firstRowCounter >= columns)
                 {
+                    levelChanger++;
                     break;
                 }
 
                 while (CooledContainers.Count > 0 && firstRowCounter < columns)
                 {
-                    cargoShip[row, firstRowCounter, 0] = CooledContainers[cooledIndex];
+                    cargoShip[row, firstRowCounter, levelChanger] = CooledContainers[cooledIndex];
                     cooledIndex++;
                     firstRowCounter++;
                     if (cooledIndex >= CooledContainers.Count)

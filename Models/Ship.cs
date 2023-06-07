@@ -31,6 +31,7 @@ namespace Models
         public void FillShip(Container[] containers)
         {
             int testCaseIndex = 0;
+            int totalContainers = containers.Length;
 
             for (int level = 0; level < Levels; level++)
             {
@@ -38,26 +39,32 @@ namespace Models
                 {
                     for (int column = 0; column < Columns; column++)
                     {
-                        CargoShip[row, column, level] = containers[testCaseIndex];
-                        testCaseIndex = (testCaseIndex + 1) % containers.Length;
+                        if (testCaseIndex < totalContainers)
+                        {
+                            CargoShip[row, column, level] = containers[testCaseIndex];
+                        }
+                        else
+                        {
+                            CargoShip[row, column, level] = new Container("EmptyContainer", ContainerType.Empty);
+                        }
+                        testCaseIndex++;
                     }
                 }
             }
         }
 
-
         public void DisplayShip()
         {
             Console.WriteLine(@"
-               _____                      _____ _     _       
-              / ____|                    / ____| |   (_)      
-             | |     __ _ _ __ __ _  ___| (___ | |__  _ _ __  
-             | |    / _` | '__/ _` |/ _ \\___ \| '_ \| | '_ \ 
-             | |___| (_| | | | (_| | (_) ____) | | | | | |_) |
-              \_____\__,_|_|  \__, |\___|_____/|_| |_|_| .__/ 
-                               __/ |                   | |    
-                              |___/                    |_|    
-            ");
+     _____                      _____ _     _       
+    / ____|                    / ____| |   (_)      
+    | |     __ _ _ __ __ _  ___| (___ | |__  _ _ __  
+    | |    / _` | '__/ _` |/ _ \\___ \| '_ \| | '_ \ 
+    | |___| (_| | | | (_| | (_) ____) | | | | | |_) |
+     \_____\__,_|_|  \__, |\___|_____/|_| |_|_| .__/ 
+                      __/ |                   | |    
+                     |___/                    |_|    
+");
 
             Console.WriteLine("\nSorted Cargo Ship:");
 
